@@ -1,12 +1,12 @@
 from flask import request
 from flask_restplus import Resource
 from extensions import api
-from chatbot.serializers.user_serializer import user_serializer
-from chatbot.controller.user_controller import UserController
+from app.serializers.user_serializer import user_serializer
+from app.controller.user_controller import UserController
 
 namespace_user = api.namespace("user", description="Operations related with users")
 
-namespace_user.route("/")
+@namespace_user.route("/")
 class UserCollection(Resource):
 
     def __init__(self, api=None, *args, **kwargs):

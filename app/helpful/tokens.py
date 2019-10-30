@@ -1,6 +1,6 @@
 import datetime
 import jwt
-from chatbot.controller.user_controller import UserController
+from app.controller.user_controller import UserController
 from config import key
 
 
@@ -9,7 +9,7 @@ def encode_auth_token(id_user):
         payload = {
             "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=5),
             "iat": datetime.datetime.utcnow(),
-            "sub": id_user
+            "sub": str(id_user)
         }
         return jwt.encode(
             payload,

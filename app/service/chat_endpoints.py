@@ -1,7 +1,7 @@
 from flask_restplus import Resource
 from extensions import api
-from chatbot.serializers.chat_serializer import message_serializer
-from chatbot.controller.chat_controller import ChatController
+from app.serializers.chat_serializer import message_serializer
+from app.controller.chat_controller import ChatController
 
 
 namespace_chat = api.namespace("chat", description="Operations related with chat")

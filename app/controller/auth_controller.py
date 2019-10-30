@@ -1,15 +1,15 @@
 from .user_controller import UserController
-from chatbot.helpful.tokens import encode_auth_token
+from app.helpful.tokens import encode_auth_token
 
-class Auth:
+class AuthController:
 
-    @staticmethod
-    def login(data):
+    def login(self, data):
         try:
             user = UserController().login_user(cpf=data.get("cpf"), password=data.get("password"))
             if user:
-                auth_token = encode_auth_token(user["id"])
-                if auth_token:
+                auth_token = encode_auth_token(user["_id"])
+                saved = UserController().save_auth_token(user["_id"], auth_token)
+                if saved:
                     response_object = {
                         "status": "success",
                         "message": "Loggedd Uu",
@@ -19,12 +19,13 @@ class Auth:
             else:
                 response_object = {
                     "status": "fail",
-                    "message": "Email or password does not match"
+                    "message": "CPF or password does not match"
                 }
                 return response_object, 401
 
         except Exception as e:
             response_object = {
+                "exception": str(e),
                 "status": "fail",
                 "message": "Try again"
             }

@@ -19,10 +19,16 @@ class UserController:
     def login_user(cpf, password):
         user = mongo.db.users.find_one({"cpf": cpf})
         if user:
-            if bcrypt.checkpw(password.encode("utf-8"), user["password"].encode("utf-8")):
+            if bcrypt.checkpw(password.encode("utf-8"), user["password"]):
                 return user
 
 
     @staticmethod
     def check_auth_token(self, auth_token):
         return mongo.db.users.find_one({"auth_token": auth_token})
+
+
+    @staticmethod
+    def save_auth_token(id_user, auth_token):
+        if auth_token:
+            return mongo.db.users.update_one({"_id": id_user}, { "$set": {"auth_token": auth_token}})
