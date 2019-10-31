@@ -15,6 +15,7 @@ from bson import ObjectId
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.json_encoder = JSONEncoder
 
     blueprint = Blueprint("api", __name__)
 
@@ -31,6 +32,5 @@ def create_app():
     api.add_namespace(namespace_user)
     api.add_namespace(namespace_requirements)
 
-    app.json_encoder = JSONEncoder
 
     return app
